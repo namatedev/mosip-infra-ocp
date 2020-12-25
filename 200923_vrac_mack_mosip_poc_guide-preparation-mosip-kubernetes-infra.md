@@ -26,15 +26,15 @@ After that, it's necessary to install the extension pack for VirtualBox:
     wget http://download.virtualbox.org/virtualbox/6.1.8/Oracle_VM_VirtualBox_Extension_Pack-6.1.8-137981.vbox-extpack
     sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.8-137981.vbox-extpack
 
-After that, it's necessary to download the base virtual SO in order to use it as a template for all the virtual servers for Virtualbox. CentOS is the selected SO for our setup.
+After that, it's necessary to download the base virtual OS in order to use it as a template for all the virtual servers for Virtualbox. CentOS is the selected OS for our setup.
 
-    sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.8-137981.vbox-extpack
+    wget https://vorboss.dl.sourceforge.net/project/linuxvmimages/VirtualBox/C/7/CentOS_7.7.1908_VBM.zip
     sudo apt-get install zip
     unzip CentOS_7.7.1908_VBM.zip
 
 As a result you have to view this file `CentOS_7.7.1908_VirtualBox_Minimal_Installation_Image_LinuxVMImages.com.ova` in your current folder.
 
-After that, it's necessary to prepare or setup the network configuration for VirtualBos, as follows:
+After that, it's necessary to prepare or setup the network configuration for VirtualBox, as follows:
 
     sudo VBoxManage dhcpserver remove --network=HostInterfaceNetworking-vboxnet0
     sudo VBoxManage hostonlyif remove vboxnet0
@@ -46,6 +46,9 @@ After that, it's necessary to prepare or setup the network configuration for Vir
 You have to see the following results:
 
     sudo vboxmanage list dhcpservers
+
+=>
+
     NetworkName:    HostInterfaceNetworking-vboxnet0
     Dhcpd IP:       10.20.30.2
     LowerIPAddress: 10.20.30.10
@@ -62,7 +65,12 @@ You have to see the following results:
     Groups:               None
     Individual Configs:   None
 
+And:
+
     sudo VBoxManage list -l hostonlyifs
+
+=>
+
     Name:            vboxnet0
     GUID:            786f6276-656e-4074-8000-0a0027000000
     DHCP:            Disabled
