@@ -5,9 +5,9 @@ In order to install an kubernetes virtual network it's necessary to have the fol
 - 12 processors.
 - 250Gb of memory.
 - 864Gb of space in disk
-- Ubuntu 18.04.4 LTS (Bionic Beaver) intalled OS
+- Ubuntu 18.04.4 LTS (Bionic Beaver) installed OS
 
-After that, initiate session in the server in order to install the VirtualBox sotware and configuire it, as it follows:
+After that, initiate session in the server in order to install the VirtualBox software and configure it, as it follows:
 
     sudo apt-get update 
     sudo yum install wget
@@ -80,7 +80,7 @@ Make the following directory for the VMs:
 
     sudo mkdir /opt/virtualbox/vms
 
-After that, it's necesarry to prepare the following virtual OS servers:
+After that, it's necessary to prepare the following virtual OS servers:
  
     | Component       | Number of VMs | Configuration     | Persistence |
     |---              |---            |---                |---          |
@@ -157,7 +157,7 @@ After that, it's necessary to persist this IP in an internal file of the console
       sudo su - mosipuser -c "mkdir /home/mosipuser/.ssh"
       reboot
 
-You can repeat the steps decribed above in order to create the virtual severs mzmaster and dmzmaster.
+You can repeat the steps described above in order to create the virtual severs mzmaster and dmzmaster.
 
 ### Virtual servers: mzworkers dmzworkers ###
 
