@@ -38,8 +38,12 @@ After that, it's necessary to prepare or setup the network configuration for Vir
 
     sudo VBoxManage dhcpserver remove --network=HostInterfaceNetworking-vboxnet0
     sudo VBoxManage hostonlyif remove vboxnet0
+
+    # Creates a new vboxnet0 interface on the host and configures its ip 10.20.30.1
     sudo VBoxManage hostonlyif create
     sudo VBoxManage hostonlyif ipconfig vboxnet0 --ip 10.20.30.1 --netmask 255.255.255.0
+
+    # adding a DHCP server with server ip being 10.20.30.2
     sudo VBoxManage dhcpserver add --ifname vboxnet0 --ip 10.20.30.2 --netmask 255.255.255.0 --lowerip 10.20.30.10 --upperip 10.20.30.254
     sudo VBoxManage dhcpserver modify --ifname vboxnet0 --enable
 
@@ -102,6 +106,8 @@ After that, it's necessary to prepare the following virtual OS servers:
 Let's see the creation of the console virtual SO in VirtualBox, it's as follows:
 
     sudo vboxmanage import CentOS_7.7.1908_VirtualBox_Minimal_Installation_Image_LinuxVMImages.com.ova           --vsys 0 --group "/mosipgroup" --vsys 0 --description "mosip" --vsys 0 --eula accept --vsys 0 --unit 14 --ignore --vsys 0 --unit 15 --ignore --vsys 0 --unit 17 --ignore --vsys 0 --memory 8192 --vsys 0 --basefolder "/opt/virtualbox/vms" --vsys 0 --cpus 4 --vmname console
+
+    # We create 2 network cards to the console VM : one in NAT to allow incoming connections (80, 443, 30090), and another connected in host-only mode directly to the host
     sudo vboxmanage modifyvm console --nic1 nat
     sudo VBoxManage modifyvm console --nic2 hostonly --hostonlyadapter2 vboxnet0
 
@@ -111,11 +117,11 @@ This step is only specific for the console virtual server, it is not needed for 
     sudo vboxmanage modifyvm console --natpf1 "rulename2,tcp,,443,,443"
     sudo vboxmanage modifyvm console --natpf1 "rulename3,tcp,,30090,,30090"
 
-Power on the virtual server:
+Power-on the virtual machine of the console:
 
     sudo vboxmanage startvm console --type headless
 
-After that, it's necessary to monitor the properties of this server in order to locate the assigned IP for this virtual server by the following command:
+After that, it's necessary to monitor the properties of this console VM in order to locate the assigned IP for this virtual machine by the following command:
 
     sudo VBoxManage guestproperty enumerate console
 
@@ -123,9 +129,9 @@ You have to view this result among the lines:
 
     Name: /VirtualBox/GuestInfo/Net/1/V4/IP, value: 10.20.30.10, timestamp: 1596637864670847000, flags:
 
-After that, it's necessary to persist this IP in an internal file of the console virtual server, it's as follows:
+After that, it's necessary to persist this IP in an internal file of the console virtual machine, it's as follows:
 
-- Initiate session on ssh `ssh centos@10.20.30.10`
+- Initiate session on ssh from the host into the console VM: `ssh centos@10.20.30.10`
 - After that do the following:
 
       sudo touch /etc/sysconfig/network-scripts/ifcfg-enp0s8
@@ -151,13 +157,13 @@ After that, it's necessary to persist this IP in an internal file of the console
       sudo systemctl stop firewalld
       sudo systemctl disable firewalld
 
-- After that, it's necessary to modify the sudo config file in order to make every user an sudoer password-less.
+- After that, it's necessary to modify the sudo config file of the console VM in order to make every user an sudoer password-less.
 
       sudo vi /etc/sudoers
       #uncomment the line deleting the character # and then save the file
       #%wheel  ALL=(ALL)       NOPASSWD: ALL
 
-- After that, it's necessary to create the user mosipuser and reboot the virtual server
+- After that, it's necessary to create the user mosipuser and reboot the console virtual machine
  
       sudo adduser -s /bin/bash -m -g 1000 -G wheel mosipuser
       #the pass could be k3WUFKLMLR5UPb84
