@@ -102,12 +102,13 @@ After that, it's necessary to prepare the following virtual OS servers:
     |K8s DMZ master   | 1             | 4 VCPU, 8 GB RAM  | -           |
     |K8s DMZ workers  | 1             | 4 VCPU, 16 GB RAM | -           |
 
-### Virtual servers: console, mzmaster, dmzmaster ###
-Let's see the creation of the console virtual SO in VirtualBox, it's as follows:
+### 1. Virtual Machines: first the console ###
+Let's see the creation of the console virtual OS in VirtualBox, it's as follows:
 
     sudo vboxmanage import CentOS_7.7.1908_VirtualBox_Minimal_Installation_Image_LinuxVMImages.com.ova           --vsys 0 --group "/mosipgroup" --vsys 0 --description "mosip" --vsys 0 --eula accept --vsys 0 --unit 14 --ignore --vsys 0 --unit 15 --ignore --vsys 0 --unit 17 --ignore --vsys 0 --memory 8192 --vsys 0 --basefolder "/opt/virtualbox/vms" --vsys 0 --cpus 4 --vmname console
 
-    # We create 2 network cards to the console VM : one in NAT to allow incoming connections (80, 443, 30090), and another connected in host-only mode directly to the host
+We create 2 network cards to the console VM : one in NAT to allow incoming connections (80, 443, 30090), and another connected in host-only mode directly to the host
+
     sudo vboxmanage modifyvm console --nic1 nat
     sudo VBoxManage modifyvm console --nic2 hostonly --hostonlyadapter2 vboxnet0
 
@@ -173,9 +174,9 @@ After that, it's necessary to persist this IP in an internal file of the console
 
 You can repeat the steps described above in order to create the virtual severs mzmaster and dmzmaster.
 
-### Virtual servers: mzworkers dmzworkers ###
+### 2. Other Virtual machines: mzworkers dmzworkers ###
 
-Let's see the creation of the mzworker0 virtual SO in VirtualBox, it's as follows:
+Let's see the creation of the mzworker0 virtual OS in VirtualBox, it's as follows:
 
     sudo vboxmanage import CentOS_7.7.1908_VirtualBox_Minimal_Installation_Image_LinuxVMImages.com.ova           --vsys 0 --group "/mosipgroup" --vsys 0 --description "mosip" --vsys 0 --eula accept --vsys 0 --unit 14 --ignore --vsys 0 --unit 15 --ignore --vsys 0 --unit 17 --ignore --vsys 0 --memory 16384 --vsys 0 --basefolder "/opt/virtualbox/vms" --vsys 0 --cpus 4 --vmname mzworker0
     sudo vboxmanage modifyvm mzworker0 --nic1 nat
@@ -209,7 +210,7 @@ It's necessary to persist all the IPs of the virtual servers in the `/etc/hosts`
     10.20.30.22  mzworker8
     10.20.30.16  dmzworker0
 
-Initiate session in the console virtual server with the user mosipuser, the password is: `k3WUFKLMLR5UPb84`
+Initiate session in the console virtual machine with the user mosipuser, the password is: `k3WUFKLMLR5UPb84`
 
     ssh mosipuser@console
 
@@ -221,12 +222,12 @@ Copy the public key to the authorized_keys file
 
     cat /home/mosipuser/.ssh/id_rsa.pub >> /home/mosipuser/.ssh/authorized_keys
 
-After that, logout from the console virtual server and execute theses command from your current user in the host server:
+After that, logout from the console virtual machine and execute theses command from your current user in the host server:
 
     scp mosipuser@console:~/.ssh/id_rsa ~/.ssh/
     scp mosipuser@console:~/.ssh/id_rsa.pub ~/.ssh/
 
-The final result is that you can login to the console virtual server by user mosipuser without issuing the password.
+The final result is that you can login to the console virtual machine by user mosipuser without issuing the password.
 
 ### Installing MOSIP infra in console virtual server ###
 
