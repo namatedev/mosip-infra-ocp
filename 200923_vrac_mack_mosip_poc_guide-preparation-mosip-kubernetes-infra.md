@@ -1,5 +1,6 @@
 # Guide to prepare the servers of mosip-infra in kubernetes
 
+## Host Requirements
 In order to install an kubernetes virtual network it's necessary to have the following hardware capacity:
 
 - 12 processors.
@@ -7,6 +8,8 @@ In order to install an kubernetes virtual network it's necessary to have the fol
 - 864Gb of space in disk
 - Ubuntu 18.04.4 LTS (Bionic Beaver) installed OS
 
+## Host Preparation
+### VirtualBox on Host
 After that, initiate session in the server in order to install the VirtualBox software and configure it, as it follows:
 
     sudo apt-get update 
@@ -19,6 +22,7 @@ After that, initiate session in the server in order to install the VirtualBox so
 Check the version of VirtualBox as follows:
 
     vboxmanage --version
+
 You have to get this result: `6.1.8r137981`
 
 After that, it's necessary to install the extension pack for VirtualBox:
@@ -34,6 +38,7 @@ After that, it's necessary to download the base virtual OS in order to use it as
 
 As a result you have to view this file `CentOS_7.7.1908_VirtualBox_Minimal_Installation_Image_LinuxVMImages.com.ova` in your current folder.
 
+### Host Networking
 After that, it's necessary to prepare or setup the network configuration for VirtualBox, as follows:
 
     sudo VBoxManage dhcpserver remove --network=HostInterfaceNetworking-vboxnet0
@@ -92,6 +97,7 @@ Make the following directory for the VMs:
 
     sudo mkdir /opt/virtualbox/vms
 
+## VMs Creation
 After that, it's necessary to prepare the following virtual OS servers:
  
     | Component       | Number of VMs | Configuration     | Persistence |
@@ -102,7 +108,7 @@ After that, it's necessary to prepare the following virtual OS servers:
     |K8s DMZ master   | 1             | 4 VCPU, 8 GB RAM  | -           |
     |K8s DMZ workers  | 1             | 4 VCPU, 16 GB RAM | -           |
 
-### 1. Virtual Machines: first the console ###
+### 1. Virtual Machines: first the console
 Let's see the creation of the console virtual OS in VirtualBox, it's as follows:
 
     sudo vboxmanage import CentOS_7.7.1908_VirtualBox_Minimal_Installation_Image_LinuxVMImages.com.ova           --vsys 0 --group "/mosipgroup" --vsys 0 --description "mosip" --vsys 0 --eula accept --vsys 0 --unit 14 --ignore --vsys 0 --unit 15 --ignore --vsys 0 --unit 17 --ignore --vsys 0 --memory 8192 --vsys 0 --basefolder "/opt/virtualbox/vms" --vsys 0 --cpus 4 --vmname console
