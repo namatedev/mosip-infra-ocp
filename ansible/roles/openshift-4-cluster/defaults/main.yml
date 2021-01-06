@@ -1,0 +1,12 @@
+---
+
+# reference to coreos qcow file
+coreos_version: 4.5.2
+coreos_download_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{ coreos_version.split('.')[:2]|join('.') }}/{{ coreos_version }}/rhcos-{{coreos_version}}-x86_64-qemu.x86_64.qcow2.gz"
+coreos_csum_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{ coreos_version.split('.')[:2]|join('.') }}/{{ coreos_version }}/sha256sum.txt"
+
+# you can check available version numbers from here:
+# https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/
+coreos_path: /var/lib/libvirt/images
+coreos_file: "rhcos-{{ coreos_version }}.qcow2"
+coreos_image_location: "{{ coreos_path }}/{{ coreos_file }}"
