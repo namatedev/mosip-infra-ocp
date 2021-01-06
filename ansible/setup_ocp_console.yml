@@ -4,7 +4,9 @@
   connection: local
   # gather_facts true because we need the public ip address
   gather_facts: true
-
+  vars_files:
+  - ../cluster.yml
+  
   tasks:
   - name: Deploy cluster
     import_role: 
