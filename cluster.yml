@@ -1,0 +1,6 @@
+---
+cluster_name: ocp4one
+public_domain: namategroup.com
+
+# set custom public ip for DNS entries. Defaults to: hostvars['localhost']['ansible_default_ipv4']['address']
+public_ip: 88.99.25.205
