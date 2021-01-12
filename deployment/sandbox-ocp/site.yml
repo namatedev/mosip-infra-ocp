@@ -1,2 +1,4 @@
+# MZ cluster
+- import_playbook: playbooks/mzcluster.yml
 # Non-MOSIP modules
 - import_playbook: playbooks/postgres.yml
