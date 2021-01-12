@@ -5,6 +5,8 @@ ssh_public_key_location: /root/.ssh/id_rsa
 
 vn_subnet: "192.168.50.0"
 
+vm_autostart: false
+
 # Important: OpenShift version must match to RHEL CoreOS version!
 
 # reference to OpenShift version
