@@ -5,8 +5,14 @@
 #   args:
 #     creates: "/var/lib/libvirt/images/{{ vm_instance_name }}.qcow2"
 
-- name: Define VirtualMachine {{ vm_instance_name }}
-  virt:
+# - name: Define VirtualMachine {{ vm_instance_name }}
+#   virt:
+#     name: "{{ vm_instance_name }}"
+#     command: define
+#     xml: "{{ lookup('template', 'templates/vm.xml.j2') }}"
+
+- name: Start VirtualMachine {{ vm_instance_name }}
+  virt: 
     name: "{{ vm_instance_name }}"
-    command: define
-    xml: "{{ lookup('template', 'templates/vm.xml.j2') }}"
+    state: running
+    autostart: "{{ vm_autostart }}"
