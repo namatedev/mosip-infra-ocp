@@ -1,16 +1,9 @@
 ---
-- name: Create ignition files
-  include: create-ignition.yml
-  vars:
-    ssh_public_key: "{{ lookup('file', '{{ ssh_public_key_location }}.pub') }}"
-  tags: ignition
-
 - name: Create console node
   include: create-vm.yml
   vars:
     vm_instance_name: "{{ cluster_name }}-console"
     vm_network: "{{ cluster_name }}"
-    vm_ignition_file: "{{ openshift_install_dir }}/console.ign"
     vm_mac_address: "52:54:00:{{ '%02x' % vn_subnet.split('.')[1]|int }}:{{ '%02x' % vn_subnet.split('.')[2]|int }}:{{ '%02x' % 2 }}"
     vm_vcpu: 4
     vm_memory_size: 16384

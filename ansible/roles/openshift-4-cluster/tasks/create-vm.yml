@@ -1,6 +1,12 @@
 ---
 # # /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud.qcow2
-- name: Create disk for {{ vm_instance_name }}
-  command: "qemu-img create -f qcow2 -b {{ coreos_image_location }} /var/lib/libvirt/images/{{ vm_instance_name }}.qcow2 {{ vm_root_disk_size }}"
-  args:
-    creates: "/var/lib/libvirt/images/{{ vm_instance_name }}.qcow2"
+# - name: Create disk for {{ vm_instance_name }}
+#   command: "qemu-img create -f qcow2 -b {{ coreos_image_location }} /var/lib/libvirt/images/{{ vm_instance_name }}.qcow2 {{ vm_root_disk_size }}"
+#   args:
+#     creates: "/var/lib/libvirt/images/{{ vm_instance_name }}.qcow2"
+
+- name: Define VirtualMachine {{ vm_instance_name }}
+  virt:
+    name: "{{ vm_instance_name }}"
+    command: define
+    xml: "{{ lookup('template', 'templates/vm.xml.j2') }}"

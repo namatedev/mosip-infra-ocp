@@ -1,6 +1,0 @@
----
-
-- name: Create ignition files
-  command: "{{ openshift_install_command }} --dir={{ openshift_install_dir }} create ignition-configs"
-  args:
-    creates: "{{ openshift_install_dir}}/.openshift_install_state.json"
