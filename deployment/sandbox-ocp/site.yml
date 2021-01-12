@@ -1,0 +1,2 @@
+# Non-MOSIP modules
+- import_playbook: playbooks/postgres.yml
