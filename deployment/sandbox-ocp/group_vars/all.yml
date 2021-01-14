@@ -94,6 +94,36 @@ postgres:
       key: "postgres" # Key for applying taint on node
       value: "only" 
 
+repos:
+  commons:
+    src: https://github.com/mosip/commons 
+    dest: '{{tmp_dir}}/commons'
+    tag: 1.1.2
+  prereg:
+    src: https://github.com/mosip/pre-registration
+    dest: '{{tmp_dir}}/pre-registration'
+    tag: 1.1.2
+  regproc:
+    src: https://github.com/mosip/registration
+    dest: '{{tmp_dir}}/registration'
+    tag: 1.1.2
+  idrepo:
+    src: https://github.com/mosip/id-repository
+    dest: '{{tmp_dir}}/id-repository'
+    tag: 1.1.2
+  ida:
+    src: https://github.com/mosip/id-authentication
+    dest: '{{tmp_dir}}/id-authentication'
+    tag: 1.1.2
+  pms:
+    src: https://github.com/mosip/partner-management-services
+    dest: '{{tmp_dir}}/partner-management-services'
+    tag: 1.1.2
+  websub:
+    src: https://github.com/mosip/websub
+    dest: '{{tmp_dir}}/websub'
+    tag: 1.1.2
+
 nfs:
   # server: console.sb
   server: localhost
