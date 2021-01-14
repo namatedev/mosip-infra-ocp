@@ -1,0 +1,9 @@
+# This sequence of tasks runs the required sqls and loads DB with test data
+- debug:
+    msg: 'Initialize {{pg_db_name}} db'
+
+- name: '{{pg_db_name}}: Update ip address in postgres init files'
+  lineinfile:
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
+    regexp: '^DB_SERVERIP='
+    line: DB_SERVERIP={{postgres.server}}

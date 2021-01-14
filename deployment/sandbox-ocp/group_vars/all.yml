@@ -1,0 +1,101 @@
+
+---
+# Global variables - accessed by different roles and plays
+#
+user_home: '{{lookup("env", "HOME")}}'
+install_root: '{{user_home}}/mosip-infra/deployment/sandbox-ocp'
+tmp_dir: '{{install_root}}/tmp/'
+logs_dir: '{{tmp_dir}}/logs'
+charts_root: '{{install_root}}/helm/charts'  # Helm charts root
+helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
+versions_file: '{{install_root}}/versions.yml' 
+podconfig_file: '{{install_root}}/podconfig.yml'
+
+clusters:
+  mz:
+    kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
+    # nodeport_node: mzworker0.sb  # Any node on cluster for nodeport access
+    nodeport_node: compute-0  # Any node on cluster for nodeport access
+    # ingress:
+    #   namespace: ingress-nginx
+    #   nodeports:
+    #     http: 30080 
+    #     https: 30443
+    #   base_url: 'http://{{groups["mzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
+    # dashboard:
+    #   url: /mz-dashboard
+    #   token_file: '{{tmp_dir}}/dashboard_mz.token'
+    #   token_expiry: 86400 # Seconds
+    #   nodeport: 30081  # Dashboard runs on nodeport 
+    # monitoring:
+    #   enabled: true
+    #   namespace: monitoring
+    #   nfs:
+    #     server: '{{nfs.server}}'
+    #     prometheus:
+    #       alert_path: '{{nfs.folder}}/monitoring/mz/prometheus/alertmanager'
+    #       push_path: '{{nfs.folder}}/monitoring/mz/prometheus/pushgateway'
+    #       server_path: '{{nfs.folder}}/monitoring/mz/prometheus/server'
+    #     grafana:
+    #       path: '{{nfs.folder}}/monitoring/mz/grafana'
+    #   grafana_ingress_path: 'mz-grafana'
+    #   grafana_token_file: '{{tmp_dir}}/grafana_mz.token'
+    #   elasticsearch:
+    #     host: 'elasticsearch-master:9200'
+    #   kibana: 
+    #     url: http://kibana-kibana:5601 
+  # dmz:
+  #   kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
+  #   nodeport_node: dmzworker0.sb  # Any node on cluster for nodeport access
+  #   ingress:
+  #     namespace: ingress-nginx
+  #     nodeports:
+  #       http: 30080 
+  #       https: 30443
+  #     base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
+  #   dashboard: 
+  #     url: /dmz-dashboard
+  #     token_file: '{{tmp_dir}}/dashboard_dmz.token'
+  #     token_expiry: 86400 # Seconds 
+  #     nodeport: 30081  # Dashboard runs on nodeport 
+  #   monitoring:
+  #     enabled: true
+  #     namespace: monitoring
+  #     nfs:
+  #       server: '{{nfs.server}}'
+  #       prometheus:
+  #         alert_path: '{{nfs.folder}}/monitoring/dmz/prometheus/alertmanager'
+  #         push_path: '{{nfs.folder}}/monitoring/dmz/prometheus/pushgateway'
+  #         server_path: '{{nfs.folder}}/monitoring/dmz/prometheus/server'
+  #       grafana:
+  #         path: '{{nfs.folder}}/monitoring/dmz/grafana'
+  #     grafana_ingress_path: 'dmz-grafana'
+  #     grafana_token_file: '{{tmp_dir}}/grafana_dmz.token'
+  #     elasticsearch:
+  #       host: 'mzworker0.sb:30080/elasticsearch' # Connect to elasticsearch on MZ
+  #     kibana: 
+  #       url: http://mzworker0.sb:30601  # Kibana runs on this nodeport on MZ. 
+
+# Postgres persistent storage
+postgres:
+  nfs_path: '{{nfs.folder}}/postgres'  
+  size: 10Gi
+  service_name: postgres # svc on Kubernetes
+  service_port: 80
+  server: '{{clusters.mz.nodeport_node}}'
+  nodeport: 30090  # fixed for connecting from outside the cluster
+  user: postgres
+  max_connections: 1000
+  node_affinity: 
+    enabled: false # To run postgres on an exclusive node
+    # node: 'mzworker0.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: 'compute-0' # Hostname. Run only on this node, and nothing else should run on this node
+    taint:
+      key: "postgres" # Key for applying taint on node
+      value: "only" 
+
+nfs:
+  # server: console.sb
+  server: localhost
+  folder: /srv/nfs/mosip
+  provisioner: nfs-provisioner  # Name
