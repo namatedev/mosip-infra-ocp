@@ -9,7 +9,7 @@
   copy:
     src: "{{ vm_ignition_file }}"
     dest: "/var/lib/libvirt/images/{{ vm_instance_name }}.ign"
-    
+
 - name: Define VirtualMachine {{ vm_instance_name }}
   virt:
     name: "{{ vm_instance_name }}"
