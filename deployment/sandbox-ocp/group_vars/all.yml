@@ -3,7 +3,7 @@
 # Global variables - accessed by different roles and plays
 #
 user_home: '{{lookup("env", "HOME")}}'
-install_root: '{{user_home}}/mosip-infra/deployment/sandbox-ocp'
+install_root: '{{user_home}}/mosip-infra-ocp/deployment/sandbox-ocp'
 tmp_dir: '{{install_root}}/tmp/'
 logs_dir: '{{tmp_dir}}/logs'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root

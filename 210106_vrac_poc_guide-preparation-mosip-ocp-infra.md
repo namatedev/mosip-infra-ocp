@@ -66,5 +66,5 @@ Your public key has been saved in /var/home/core/.ssh/id_rsa.pub.
 ```
 cd deployment/sandbox-ocp
 ansible-vault view secrets.yml # pwd = foo
-ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml site.yml # pwd = foo
+ansible-playbook -i hosts.ini -vvvv --ask-vault-pass -e @secrets.yml site.yml # pwd = foo
 ```
