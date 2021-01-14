@@ -62,3 +62,8 @@ Your public key has been saved in /var/home/core/.ssh/id_rsa.pub.
 ---
 
 # Guide to run MOSIP script from console into OCP cluster
+
+```
+cd deployment/sandbox-ocp
+ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml site.yml
+```
