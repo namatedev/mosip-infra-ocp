@@ -1,0 +1,49 @@
+- name: check if centos image already downloaded and get checksum
+  stat:
+    checksum_algorithm: sha256
+    path: "{{ imgs_path }}/{{ centos_file }}"
+  register: centos_old_image
+
+- name: verify existing centos image is valid
+  lineinfile:
+    name: "{{ imgs_path }}/{{ centos_file }}.sha256.txt"
+    line: "{{ centos_old_image.stat.checksum }}  {{ centos_file }}"
+    state: present
+  check_mode: true
+  register: csum_check
+  failed_when: (csum_check is changed) or (csum_check is failed)
+  ignore_errors: true
+  when: centos_old_image.stat.exists
+  
+- name: Download fresh centos image if previous doesn't exist
+  block:
+
+    - name: download centos
+      get_url:
+        url: "{{ centos_download_url }}"
+        dest: "{{ imgs_path }}/{{ centos_file }}.xz"
+        checksum: "sha256:{{ centos_csum_url }}"
+      register: centos_download
+
+    - name: unzip the centos
+      command: "xz -d -v {{ imgs_path }}/{{ centos_file }}.xz"
+      args:
+        chdir: "{{ imgs_path }}"
+        creates: "{{ imgs_path }}/{{ centos_file }}"
+      register: xz
+
+    - name: calculate checksum of the new centos image
+      stat:
+        checksum_algorithm: sha256
+        path: "{{ imgs_path }}/{{ centos_file }}"
+      register: centos_csum
+
+    - name: store the checksum of the file
+      copy:
+        dest: "{{ imgs_path }}/{{ centos_file }}.sha256.txt"
+        content: "{{ centos_csum.stat.checksum }}  {{ centos_file }}\n"
+
+  when: >
+    (not centos_old_image.stat.exists) or
+    csum_check.changed or
+    csum_check.failed
