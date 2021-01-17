@@ -5,6 +5,8 @@ https://github.com/namatedev/mosip-infra-ocp/commits/main
 
 # Guide to add a machine in OCP
 
+* Create a VM
+
 ```
 [root@server ~]# cd cd mosip-infra-ocp/
 [root@server ~]# git status
