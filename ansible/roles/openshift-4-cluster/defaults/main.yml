@@ -29,3 +29,4 @@ coreos_path: /var/lib/libvirt/images
 coreos_file: "rhcos-{{ coreos_version }}.qcow2"
 coreos_image_location: "{{ coreos_path }}/{{ coreos_file }}"
 centos_file: "CentOS-7-x86_64-GenericCloud.qcow2"
+centos_image_location: "{{ imgs_path }}/{{ centos_file }}"
