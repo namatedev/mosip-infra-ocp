@@ -18,8 +18,8 @@ coreos_version: 4.5.2
 coreos_download_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{ coreos_version.split('.')[:2]|join('.') }}/{{ coreos_version }}/rhcos-{{coreos_version}}-x86_64-qemu.x86_64.qcow2.gz"
 coreos_csum_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{ coreos_version.split('.')[:2]|join('.') }}/{{ coreos_version }}/sha256sum.txt"
 
-# reference to centos qcow file
-centos_download_url: "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2.xz"
+# reference to centos qcow file (CentOS-7-x86_64-GenericCloud-2003 = CentOS 7.8)
+centos_download_url: "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2003.qcow2.xz"
 centos_csum_url: "https://cloud.centos.org/centos/7/images/sha256sum.txt"
 
 # you can check available version numbers from here:
