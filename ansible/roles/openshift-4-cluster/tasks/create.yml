@@ -3,16 +3,15 @@
   include: download-openshift-artifacts.yml
   tags: download-openshift-artifacts
 
-# - name: Inject host ssh into console while creating mosipuser
-#   command: "virt-sysprep -a /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud.qcow2 --run-command 'useradd mosipuser' --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
+- name: Inject host ssh into console while creating mosipuser
+  command: "virt-sysprep -a /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud.qcow2 --run-command 'useradd mosipuser' --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
 
 - name: Create console node
   include: create-vm-console-centos.yml
   vars:
     vm_instance_name: "{{ cluster_name }}-console"
     vm_network: "{{ cluster_name }}"
-    # vm_ignition_file: "{{ openshift_install_dir }}/worker.ign"
-    vm_mac_address: "52:54:00:{{ '%02x' % vn_subnet.split('.')[1]|int }}:{{ '%02x' % vn_subnet.split('.')[2]|int }}:{{ '%02x' % 2 }}"
+    vm_mac_address: "52:54:00:{{ '%02x' % vn_subnet.split('.')[1]|int }}:{{ '%02x' % vn_subnet.split('.')[2]|int }}:{{ '%02x' % 3 }}"
     vm_vcpu: 4
     vm_memory_size: 16384
     vm_memory_unit: 'MiB'
