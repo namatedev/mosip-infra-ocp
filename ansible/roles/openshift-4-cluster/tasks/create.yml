@@ -11,7 +11,8 @@
   vars:
     vm_instance_name: "{{ cluster_name }}-console"
     vm_network: "{{ cluster_name }}"
-    vm_mac_address: "52:54:00:{{ '%02x' % vn_subnet.split('.')[1]|int }}:{{ '%02x' % vn_subnet.split('.')[2]|int }}:{{ '%02x' % 3 }}"
+    # vm_mac_address: "52:54:00:{{ '%02x' % vn_subnet.split('.')[1]|int }}:{{ '%02x' % vn_subnet.split('.')[2]|int }}:{{ '%02x' % 3 }}"
+    vm_mac_address: "52:54:00:a8:32:1a"
     vm_vcpu: 4
     vm_memory_size: 16384
     vm_memory_unit: 'MiB'
