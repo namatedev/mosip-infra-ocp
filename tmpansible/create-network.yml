@@ -1,0 +1,18 @@
+---
+
+# Define a new network
+- community.libvirt.virt_net:
+    command: define
+    name: br_nat
+    xml: '{{ lookup("template", "network/bridge.xml.j2") }}'
+
+# Ensure that a network is active (needs to be defined and built first)
+- community.libvirt.virt_net:
+    state: active
+    name: br_nat
+
+# Add a new host in the dhcp pool
+# - community.libvirt.virt_net:
+#     name: br_nat
+#     command: modify
+#     xml: "<host mac='FC:C2:33:00:6c:3c' name='my_vm' ip='192.168.122.30'/>"

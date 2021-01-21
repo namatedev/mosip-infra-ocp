@@ -8,6 +8,7 @@ https://github.com/namatedev/mosip-infra-ocp/commits/main
 * Create a VM
 
 ```
+[root@server ~]# git clone https://github.com/namatedev/mosip-infra-ocp.git
 [root@server ~]# cd mosip-infra-ocp/
 [root@server ~]# git status
 [root@server ~]# git fetch
