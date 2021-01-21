@@ -9,7 +9,8 @@
   virt:
     name: "{{ vm_instance_name }}"
     command: define
-    xml: "{{ lookup('template', 'templates/vm-console.xml.j2') }}"
+    # xml: "{{ lookup('template', 'templates/vm-console.xml.j2') }}"
+    xml: "{{ lookup('template', 'templates/vmconsole.xml.j2') }}"
 
 - name: Start VirtualMachine {{ vm_instance_name }}
   virt: 
