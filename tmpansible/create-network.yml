@@ -10,14 +10,15 @@
     #     name: br_nat
     #     xml: '{{ lookup("template", "network/bridge.xml.j2") }}'
 
-    # Ensure that a network is active (needs to be defined and built first)
-    - name: Active network br_nat
-      virt_net:
-        state: active
-        name: TRYOCP
+    # # Ensure that a network is active (needs to be defined and built first)
+    # - name: Active network br_nat
+    #   virt_net:
+    #     state: active
+    #     name: TRYOCP
 
-# Add a new host in the dhcp pool
-# - community.libvirt.virt_net:
-#     name: br_nat
-#     command: modify
-#     xml: "<host mac='FC:C2:33:00:6c:3c' name='my_vm' ip='192.168.122.30'/>"
+    # Add a new host in the dhcp pool
+    - name: Add new host to network
+      virt_net:
+        name: TRYOCP
+        command: modify
+        xml: "<host name='my_vm' />"
