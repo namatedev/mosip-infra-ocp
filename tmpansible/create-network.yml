@@ -1,13 +1,15 @@
 ---
 
 # Define a new network
-- virt_net:
+- name: Define network br_nat
+  virt_net:
     command: define
     name: br_nat
     xml: '{{ lookup("template", "network/bridge.xml.j2") }}'
 
 # Ensure that a network is active (needs to be defined and built first)
-- virt_net:
+- name: Active network br_nat
+  virt_net:
     state: active
     name: br_nat
 
