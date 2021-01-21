@@ -1,0 +1,4 @@
+#!/usr/bin/env ansible-playbook
+---
+- import_playbook: prepare-host.yml
+- import_playbook: create-network.yml

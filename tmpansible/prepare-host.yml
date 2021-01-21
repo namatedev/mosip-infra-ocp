@@ -1,0 +1,10 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  tasks:
+
+    - name: Enable and Start libvirtd
+      systemd:
+        name: libvirtd
+        state: started
+        enabled: yes
