@@ -4,17 +4,17 @@
   tasks:
 
     # Define a new network
-    - name: Define network br_nat
-      virt_net:
-        command: define
-        name: br_nat
-        xml: '{{ lookup("template", "network/bridge.xml.j2") }}'
+    # - name: Define network br_nat
+    #   virt_net:
+    #     command: define
+    #     name: br_nat
+    #     xml: '{{ lookup("template", "network/bridge.xml.j2") }}'
 
     # Ensure that a network is active (needs to be defined and built first)
     - name: Active network br_nat
       virt_net:
         state: active
-        name: br_nat
+        name: TRYOCP
 
 # Add a new host in the dhcp pool
 # - community.libvirt.virt_net:
