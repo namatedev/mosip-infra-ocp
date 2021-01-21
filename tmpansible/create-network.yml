@@ -1,3 +1,4 @@
+#!/usr/bin/env ansible-playbook
 ---
 - hosts: localhost
   tasks:
@@ -11,9 +12,9 @@
 
     # Ensure that a network is active (needs to be defined and built first)
     - name: Active network br_nat
-        virt_net:
-          state: active
-          name: br_nat
+      virt_net:
+        state: active
+        name: br_nat
 
 # Add a new host in the dhcp pool
 # - community.libvirt.virt_net:
