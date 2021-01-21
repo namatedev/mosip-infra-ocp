@@ -5,4 +5,4 @@ sudo yum install ansible
 sudo yum install -y git
 git clone https://github.com/namatedev/mosip-infra-ocp.git
 cd mosip-infra-ocp/
-ansible-playbook ./tmpansible/create-network.yml
+ansible-playbook ./tmpansible/setup.yml
