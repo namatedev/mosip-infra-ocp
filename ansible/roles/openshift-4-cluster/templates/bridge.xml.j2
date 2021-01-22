@@ -1,13 +1,13 @@
 <network>
-  <name>TRYOCP2</name>
+  <name>{{ cluster_name }}</name>
 
   <forward mode='nat' />
 
-  <domain name='pute2.local' />
+  <domain name='pute3.local' />
 
-  <ip address='192.168.60.1' netmask='255.255.255.0'>
+  <ip address='192.168.70.1' netmask='255.255.255.0'>
     <dhcp>
-      <range start='192.168.60.10' end='192.168.60.99' />
+      <range start='192.168.70.10' end='192.168.70.99' />
     </dhcp>
   </ip>
 </network>

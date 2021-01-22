@@ -40,7 +40,8 @@
       <master startport="4"/>
     </controller>
     <interface type='network'>
-      <source network='TRYOCP2'/>
+      <mac address='{{ vm_mac_address }}'/>
+      <source network='{{ vm_network }}'/>
       <model type='virtio'/>
     </interface>
     <graphics type="vnc" port="-1"/>

@@ -4,25 +4,25 @@
 #     src: templates/network.xml.j2
 #     dest: network.xml     
 
-# - name: Define network {{ cluster_name }}
-- name: Define network TRYOCP2
+- name: Define network {{ cluster_name }}
+# - name: Define network TRYOCP2
   virt_net:
     command: define
-    # name: "{{ cluster_name }}"
-    name: "TRYOCP2"
+    name: "{{ cluster_name }}"
+    # name: "TRYOCP2"
     # xml: "{{ lookup('template', 'templates/network.xml.j2') }}"
     xml: "{{ lookup('template', 'templates/bridge.xml.j2') }}"
 
-# - name: Active network {{ cluster_name }}
-- name: Active network TRYOCP2
+- name: Active network {{ cluster_name }}
+# - name: Active network TRYOCP2
   virt_net:
     state: active
-    # name: "{{ cluster_name }}"
-    name: TRYOCP2
+    name: "{{ cluster_name }}"
+    # name: TRYOCP2
 
-# - name: Activate autostart network {{ cluster_name }}
-- name: Activate autostart network TRYOCP2
+- name: Activate autostart network {{ cluster_name }}
+# - name: Activate autostart network TRYOCP2
   virt_net:
     autostart: yes
-    # name: "{{ cluster_name }}"
-    name: TRYOCP2
+    name: "{{ cluster_name }}"
+    # name: TRYOCP2
