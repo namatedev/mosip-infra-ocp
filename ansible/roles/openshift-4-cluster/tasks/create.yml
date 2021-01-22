@@ -9,11 +9,8 @@
 # Add a new host in the dhcp pool
 - name: Add new host to network
   virt_net:
-    # name: TRYOCP2
     name: "{{ cluster_name }}"
     command: modify
-    # xml: "<host name='ocp4try-console' ip='192.168.70.50' mac='52:54:00:a8:32:1f' />"
-    # xml: "<host name='{{ cluster_name }}-console' ip='192.168.80.50' mac='52:54:00:a8:32:2f' />"
     xml: "<host name='{{ cluster_name }}-console' ip='{{ vn_subnet.split('.')[:3] | join('.')}}.50' mac='52:54:00:{{ '%02x' % vn_subnet.split('.')[1]|int }}:{{ '%02x' % vn_subnet.split('.')[2]|int }}:{{ '%02x' % 3 }}' />"
 
 - name: Download OpenShift Artifacts
@@ -26,7 +23,6 @@
     vm_instance_name: "{{ cluster_name }}-console"
     vm_network: "{{ cluster_name }}"
     vm_mac_address: "52:54:00:{{ '%02x' % vn_subnet.split('.')[1]|int }}:{{ '%02x' % vn_subnet.split('.')[2]|int }}:{{ '%02x' % 3 }}"
-    # vm_mac_address: "52:54:00:a8:32:2f"
     vm_vcpu: 4
     vm_memory_size: 16384
     vm_memory_unit: 'MiB'
