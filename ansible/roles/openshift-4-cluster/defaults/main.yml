@@ -9,7 +9,8 @@ ssh_public_key_location: /root/.ssh/id_rsa
 # vn_subnet: "192.168.51.0"
 # vn_subnet: "192.168.52.0"
 # vn_subnet: "192.168.53.0"
-vn_subnet: "192.168.54.0"
+# vn_subnet: "192.168.54.0"
+vn_subnet: "192.168.55.0"
 # vn_internal_domain: "intrn.local"
 # vn_internal_domain: "intrn2.local"
 # vn_internal_domain: "intrn3.local"
@@ -17,7 +18,8 @@ vn_subnet: "192.168.54.0"
 # vn_internal_domain: "intrn5.local"
 # vn_internal_domain: "intrn6.local"
 # vn_internal_domain: "intrn7.local"
-vn_internal_domain: "intrn8.local"
+# vn_internal_domain: "intrn8.local"
+vn_internal_domain: "intrn9.local"
 
 vm_autostart: false
 
