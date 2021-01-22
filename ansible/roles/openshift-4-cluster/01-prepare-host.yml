@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars_files:
+  - ../cluster.yml
+  tasks:
+  - import_role:
+      name: openshift-4-cluster
+      tasks_from: prepare-host.yml
