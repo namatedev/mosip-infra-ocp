@@ -3,9 +3,11 @@
 openshift_install_dir: "{{ playbook_dir }}/../{{ cluster_name }}"
 ssh_public_key_location: /root/.ssh/id_rsa
 
-vn_subnet: "192.168.47.0"
+# vn_subnet: "192.168.47.0"
+vn_subnet: "192.168.48.0"
 # vn_internal_domain: "intrn.local"
-vn_internal_domain: "intrn2.local"
+# vn_internal_domain: "intrn2.local"
+vn_internal_domain: "intrn3.local"
 
 vm_autostart: false
 

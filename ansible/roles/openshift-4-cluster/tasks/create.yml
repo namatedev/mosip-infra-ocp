@@ -20,9 +20,6 @@
   include: download-openshift-artifacts.yml
   tags: download-openshift-artifacts
 
-# - name: Inject host ssh into console while creating mosipuser
-#   command: "virt-sysprep -a /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud.qcow2 --run-command 'useradd mosipuser' --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
-
 - name: Create console node
   include: create-vm-console-centos.yml
   vars:
