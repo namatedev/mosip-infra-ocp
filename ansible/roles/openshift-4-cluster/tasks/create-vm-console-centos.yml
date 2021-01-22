@@ -5,6 +5,9 @@
   args:
     creates: "/var/lib/libvirt/images/{{ vm_instance_name }}.qcow2"
 
+- name: Inject host ssh into console while creating mosipuser
+  command: "virt-sysprep -a /var/lib/libvirt/images/{{ vm_instance_name }}.qcow2 --run-command 'useradd mosipuser' --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
+
 - name: Define VirtualMachine {{ vm_instance_name }}
   virt:
     name: "{{ vm_instance_name }}"
