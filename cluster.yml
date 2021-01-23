@@ -13,7 +13,8 @@
 # cluster_name: ocp4try14
 # cluster_name: ocp4try15
 # cluster_name: ocp4try16
-cluster_name: ocp4try17
+# cluster_name: ocp4try17
+cluster_name: ocp4try18
 public_domain: namategroup.com
 
 # set custom public ip for DNS entries. Defaults to: hostvars['localhost']['ansible_default_ipv4']['address']
