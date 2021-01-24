@@ -15,7 +15,7 @@
 - name: Inject host ssh into console while creating mosipuser
   # command: "virt-sysprep --selinux-relabel -a /var/lib/libvirt/images/{{ vm_instance_name }}.qcow2 --run-command 'useradd mosipuser' --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
   # command: "virt-sysprep --selinux-relabel -a /var/lib/libvirt/images/{{ vm_instance_name }}.qcow2 --run-command 'useradd –G wheel mosipuser' -root-password password:123456 --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
-  command: "virt-sysprep --selinux-relabel -a /var/lib/libvirt/images/{{ vm_instance_name }}.qcow2 --run-command 'adduser -s /bin/bash -m -g 10 -G wheel mosipuser' -root-password password:123456  --append-line '/etc/sudoers:wheel  ALL=(ALL)       NOPASSWD: ALL' --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
+  command: "virt-sysprep --selinux-relabel -a /var/lib/libvirt/images/{{ vm_instance_name }}.qcow2 --run-command 'adduser -s /bin/bash -m -g 10 -G wheel mosipuser' -root-password password:123456  --append-line '/etc/sudoers:%wheel  ALL=(ALL)       NOPASSWD: ALL' --ssh-inject mosipuser:file:/root/.ssh/id_rsa.pub"
 
 - name: Start VirtualMachine {{ vm_instance_name }}
   virt: 
